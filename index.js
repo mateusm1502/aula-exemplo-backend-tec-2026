@@ -28,9 +28,12 @@ app.get("/api/pessoa", (req, res) => {
     res.send({ message: "Pessoa criada com sucesso" })
 })
  
- 
 app.listen(3000,() => {
     console.log("Servidor ouvindo na porta 3000")
 })
  
+
+app.get("/api/salario", (req, res) => [
+    
+])
  
