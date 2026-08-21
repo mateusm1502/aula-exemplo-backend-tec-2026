@@ -1,33 +1,16 @@
 import express from 'express'
-import carros from '../repository/carro.js'
+import ControllerCarro from '../controller/carro.js'
 
 const router = express.Router()
 
-router.get("/buscar", (req, res) => {
-    res.send({ mensagem: carros})
-})
+router.get("/buscar", ControllerCarro.Buscar)
 
-router.get("/detalhe/:id", (req, res) => {
-    
-})
+router.get("/detalhe/:id", ControllerCarro.Detalhe)
 
-router.post("/criar", (req, res) => {
-    const { id, marca, ano } = req.body 
+router.post("/criar", ControllerCarro.Criar)
 
-    if (!id || !marca || !ano) {
-        res.send({ mensagem: "Favor informar todos os dados"})
-        return
-    }
-    carros.push({ id, marca, ano })
-    res.send({ mensagem: "Cadastrado com sucesso"})
-})
+router.post("/alterar", ControllerCarro.Alterar)
 
-router.get("/alterar", (req, res) => {
-    
-})
-
-router.get("/daleta", (req, res) => {
-    
-})
+router.get("/deletar", ControllerCarro.Deletar)
 
 export default router
