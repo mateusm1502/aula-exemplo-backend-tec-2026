@@ -1,13 +1,12 @@
-import carros from "../repository/carro"
 import ServiceCarro from "../service/carro.js"
 
 class ControllerCarro {
 
     //Recebimento e a saida das info
 
-    Buscar (_, res) {
+   async Buscar (_, res) {
         try {
-            const carros = ServiceCarro.Buscar()
+            const carros = await ServiceCarro.Buscar()
             res.send({ mensagem: carros})
         } catch (error) {
             res.status(500).send({

@@ -3,7 +3,7 @@ import RepositoryCarro from "../repository/carro.js"
 class ServiceCarro {
     // Core: Regra de Negocio
     Buscar() {
-       return RepositoryCarro
+       return RepositoryCarro.Find()
     }
 
     Detalhe(id) {
