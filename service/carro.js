@@ -1,43 +1,56 @@
-import RepositoryCarro from "../repository/carro.js"
+import RepositoryCarro from '../repository/carro.js'
 
 class ServiceCarro {
-    // Core: Regra de Negocio
-    Buscar() {
-       return RepositoryCarro.Find()
+
+    // Core- Regra de Negocio
+    async Buscar() {
+        return RepositoryCarro.Find()
     }
 
-    Detalhe(id) {
+    async Detalhe(id) {
         if(!id) {
             throw new Error("Favor informar o ID")
         }
-    const carro = carros.find(it => it.id === id)
 
-    if(!carro) {
-        throw new Error(`ID ${id} do carro nao encontrado`)
+        const carro = await RepositoryCarro.FindById(id)
+        
+        if(!carro) {
+            throw new Error(`ID ${id} do carro não encontrado`)
+        }
+
+        return carro
+    }
+    // Função(parametros, parametros, parametros)
+    async Criar(marca, ano) {
+        if (!marca || !ano) {
+            throw new Error("Favor informar todos os dados")
+        }
+
+        const carro = await RepositoryCarro.Create(marca, ano)
+
+        return carro
     }
 
-    return carro
+    async Alterar(id, marca, ano) {
+        if (!id) {
+            throw new Error("Favor informar os dados");
+        }
+
+        const carroAlterado = await RepositoryCarro.Update(id, marca, ano)
+        
+        return carroAlterado
     }
 
-    // Funcao(parametros, parametros, parametros)
-    Criar(id, marca, ano) {
-        if (!id || !marca || !ano) {
-        throw new Error({ mensagem: "Favor informar todos os dados"})
-    }
-    RepositoryCarro.push({ id, marca, ano })
-    return{id, marca, ano}
-    }
-
-    Alterar() {}
-
-    Deletar(id) {
+    async Deletar(id) {
         if (!id) {
             throw new Error("Favor informar o ID")
-    }
-        RepositoryCarro.splice(it => it.id === id, 1)
+        }
+        
+        const carro = await RepositoryCarro.Delete(id)
 
-        return id
+        return carro
     }
+
 }
 
 export default new ServiceCarro()

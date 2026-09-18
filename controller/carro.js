@@ -1,27 +1,25 @@
-import ServiceCarro from "../service/carro.js"
+import ServiceCarro from '../service/carro.js'
 
 class ControllerCarro {
-
-    //Recebimento e a saida das info
-
-   async Buscar (_, res) {
+    // Recebimento e a Saida das info
+    async Buscar(_, res) {
         try {
             const carros = await ServiceCarro.Buscar()
-            res.send({ mensagem: carros})
+            res.status(200).send({ mensagem: carros })
         } catch (error) {
             res.status(500).send({
                 mensagem: error.message
             })
         }
+    }
 
-}
-
-    Detalhe(req, res) {
+    async Detalhe(req, res) {
         try {
             const id = req.params.id
-           const carro = ServiceCarro.Detalhe(id)
- 
-            res.send({ mensagem: carro })
+
+            const carro = await ServiceCarro.Detalhe(id)
+
+            res.status(200).send({ mensagem: carro })
         } catch (error) {
             res.status(500).send({
                 mensagem: error.message
@@ -29,23 +27,13 @@ class ControllerCarro {
         }
     }
 
-    Criar (req, res) {
+    async Criar(req, res) {
         try {
-    const { id, marca, ano } = req.body 
+            const { marca, ano } = req.body
 
-    ServiceCarro.Criar(id, marca, ano)
-
-    } catch (error) {
-            res.status(500).send({
-                mensagem: error.message
-            })
-        }
-    res.send({ mensagem: "Cadastrado com sucesso"})
-}
-
-    Alterar(req, res) {
-        try {
+            await ServiceCarro.Criar(marca, ano)
             
+            res.status(201).send({ mensagem: "Cadastrado com sucesso" })
         } catch (error) {
             res.status(500).send({
                 mensagem: error.message
@@ -53,13 +41,14 @@ class ControllerCarro {
         }
     }
 
-    Deletar(req, res) {
-        try{
-            const id = req.body.id
+    async Alterar(req, res) {
+        try {
+            const { marca, ano } = req.body
+            const id = req.params.id
 
-            ServiceCarro.Deletar(id)
-
-            res.send({ mensagem: "Deletado" })
+            await ServiceCarro.Alterar(id, marca, ano)
+            
+            res.status(201).send({ mensagem: "Cadastrado com sucesso" })
         } catch (error) {
             res.status(500).send({
                 mensagem: error.message
@@ -67,6 +56,19 @@ class ControllerCarro {
         }
     }
 
+    async Deletar(req, res) {
+        try {
+            const identificador = req.params.id
+
+            await ServiceCarro.Deletar(identificador)
+
+            res.status(204).send({ mensagem: "Deletado" })
+        } catch (error) {
+            res.status(500).send({
+                mensagem: error.message
+            })
+        }
+    }
 }
 
 export default new ControllerCarro()

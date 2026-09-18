@@ -9,6 +9,7 @@ class Database {
             database: "exemplo",
             host: "localhost",
             username: "root",
+            password: "",
             dialect: "mysql",
         })
     }
