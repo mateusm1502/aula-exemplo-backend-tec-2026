@@ -1,14 +1,20 @@
-import express from "express"
-import ControllerUsuario from "../controller/usuario.js"
-import authMiddleware from "../middleware/auth.js"
+import express from 'express'
+import ControllerUsuario from '../controller/usuario.js'
+import authMiddleware from '../middleware/auth.js'
+ 
 const router = express.Router()
-
-// TODO
+ 
 router.post("/login", ControllerUsuario.Login)
-router.get("/buscar", authMiddleware, ControllerUsuario.Buscar)
+ 
+router.get("/buscar",authMiddleware, ControllerUsuario.Buscar)
+ 
 router.get("/detalhe/:id", ControllerUsuario.Detalhe)
+ 
 router.post("/criar", ControllerUsuario.Criar)
-router.put("/alterar/:id", ControllerUsuario.Alterar)
-router.delete("/deletar/:id", ControllerUsuario.Deletar)
-
-export default router  
+ 
+router.post("/alterar", ControllerUsuario.Alterar)
+ 
+router.get("/deletar", ControllerUsuario.Deletar)
+ 
+export default router
+ 
